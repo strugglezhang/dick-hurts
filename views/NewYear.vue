@@ -13,20 +13,29 @@
                 <h1 class="title">过年倒计时</h1>
                 <p class="time">{{ newYearTime }}</p>
             </div>
-        </div>
-
-        <!-- 第二排: 吃饭倒计时和睡觉倒计时 -->
-        <div class="row">
             <!-- 左侧倒计时 -->
             <div class="countdown-card">
                 <h1 class="title">吃饭倒计时</h1>
                 <p class="time">{{ lunchTime }}</p>
             </div>
-
-            <!-- 右侧倒计时 -->
+        </div>
+        <!-- 第三排: 天气预报和拉屎倒计时 -->
+        <div class="row">
             <div class="countdown-card">
                 <h1 class="title">睡觉倒计时</h1>
                 <p class="time">{{ sleepTime }}</p>
+            </div>
+            <!-- 左侧倒计时 -->
+            <div class="countdown-card">
+                <h1 class="title">天气预报</h1>
+                <p class="time">{{ weather }}</p>
+            </div>
+
+            <!-- 右侧倒计时 -->
+            <div class="countdown-card">
+                <h1>拉屎倒计时</h1>
+                <p v-if="countdownTime > 0" class="time">距拉屎还有：{{ formattedTime }}</p>
+                <p v-else>该拉屎啦！</p>
             </div>
         </div>
     </div>
@@ -41,6 +50,9 @@ export default {
             newYearTime: '',  // 过年倒计时
             lunchTime: '',  // 吃饭倒计时
             sleepTime: '',  // 睡觉倒计时
+            weather: '',  // 天气预报
+            formattedTime: '',  // 拉屎倒计时
+            countdownTime: 7200000,  // 2小时的倒计时（以毫秒为单位）
         }
     },
     mounted() {
@@ -48,6 +60,7 @@ export default {
         this.startNewYearCountdown();
         this.startLunchCountdown();
         this.startSleepCountdown();
+        this.startPoopCountdown();  // 初始化拉屎倒计时
     },
     methods: {
         // 下班倒计时
@@ -73,7 +86,7 @@ export default {
 
         // 过年倒计时
         startNewYearCountdown() {
-            const newYearTime = new Date('2025-01-29T00:00:00').getTime();  // 过年时间设置为 2025年2月10日 00:00
+            const newYearTime = new Date('2025-01-29T00:00:00').getTime();  // 过年时间设置为 2025年1月29日
             const updateNewYearTime = () => {
                 const currentTime = new Date().getTime();
                 const remainingTime = newYearTime - currentTime;
@@ -95,7 +108,7 @@ export default {
 
         // 吃饭倒计时
         startLunchCountdown() {
-            const targetTime = new Date().setHours(17, 40, 0, 0);  // 假设吃饭时间是12:30
+            const targetTime = new Date().setHours(12, 30, 0, 0);  // 假设吃饭时间是12:30
             const updateTime = () => {
                 const currentTime = new Date().getTime();
                 const remainingTime = targetTime - currentTime;
@@ -133,7 +146,46 @@ export default {
 
             updateTime();  // 立即计算并显示初始时间
             setInterval(updateTime, 1000);  // 每秒更新倒计时
-        }
+        },
+
+        getNextPoopTime() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const nextHour = Math.ceil(currentHour / 2) * 2;  // 找到下一个2小时区间的开始时间
+
+            // 如果当前已经在2小时区间内，设置为当前时间
+            let nextTime = new Date();
+            if (nextHour <= currentHour) {
+                nextTime.setHours(nextHour + 2, 0, 0, 0);  // 设置为下一个区间的开始时间
+            } else {
+                nextTime.setHours(nextHour, 0, 0, 0);  // 设置为下一个2小时区间的开始时间
+            }
+
+            // 计算到达下一个2小时点的时间差
+            const timeDiff = nextTime.getTime() - now.getTime();
+            return timeDiff;  // 返回时间差
+        },
+        // 更新倒计时
+        startPoopCountdown() {
+            this.countdownTime = this.getNextPoopTime();  // 获取下一个2小时区间的倒计时
+
+            // 每秒更新倒计时
+            const updatePoopTime = () => {
+                if (this.countdownTime > 0) {
+                    const hours = Math.floor(this.countdownTime / (1000 * 60 * 60));
+                    const minutes = Math.floor((this.countdownTime % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((this.countdownTime % (1000 * 60)) / 1000);
+                    this.formattedTime = `${hours}小时 ${minutes}分钟 ${seconds}秒`;
+
+                    this.countdownTime -= 1000;  // 每秒递减
+                } else {
+                    this.formattedTime = "该拉屎啦！";  // 倒计时结束
+                }
+            };
+
+            updatePoopTime();  // 立即计算并显示初始时间
+            setInterval(updatePoopTime, 1000);  // 每秒更新倒计时
+        },
     }
 }
 </script>
@@ -181,7 +233,7 @@ export default {
 
 /* Time Styling */
 .time {
-    font-size: 36px;
+    font-size: 30px;
     font-weight: bold;
     color: #ff5722;
     margin: 20px 0;
