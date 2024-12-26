@@ -1,32 +1,19 @@
-// src/router/index.js
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
+import Dashboard from './components/Dashboard.vue';
+import Orders from './components/Orders.vue';
 
-// 导入你要使用的组件
-import HomePage from '../views/HomePage.vue'
-import CountDown from '../views/Countdown.vue'
-import NewYear from "../views/NewYear.vue";
-
+// 路由配置
 const routes = [
   {
-    path: '/',
-    name: 'HomePage',
-    component: HomePage
+    path: "/dashboard",
+    component: Dashboard,
   },
-  {
-    path: '/countdown',
-    name: 'Countdown',
-    component: CountDown
-  },
-  {
-    path: '/newyear',
-    name: 'NewYear',
-    component: NewYear
-  }
-]
+  { path: '/orders', component: Orders, name: 'orders' }
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;

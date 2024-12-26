@@ -1,53 +1,203 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="text-center">Welcome to My Vue App with Bootstrap</h1>
-                <button class="btn btn-primary">Click Me</button>
-            </div>
-        </div>
-    </div>
     <div class="countdown-container">
-        <!-- 第一排: 左侧和右侧的倒计时 -->
+        <!-- 第一排: 显示四个倒计时 -->
         <div class="row">
-            <!-- 左侧倒计时 -->
-            <div class="countdown-card">
-                <h1 class="title">下班倒计时</h1>
-                <p class="time">{{ workTime }}</p>
-            </div>
-
-            <!-- 右侧倒计时 -->
             <div class="countdown-card">
                 <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ workTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">午饭倒计时</h1>
                 <p class="time">{{ newYearTime }}</p>
             </div>
-            <!-- 左侧倒计时 -->
             <div class="countdown-card">
-                <h1 class="title">吃饭倒计时</h1>
+                <h1 class="title">晚饭倒计时</h1>
                 <p class="time">{{ lunchTime }}</p>
             </div>
-        </div>
-        <!-- 第三排: 天气预报和拉屎倒计时 -->
-        <div class="row">
             <div class="countdown-card">
                 <h1 class="title">睡觉倒计时</h1>
                 <p class="time">{{ sleepTime }}</p>
             </div>
-            <!-- 左侧倒计时 -->
+        </div>
+        <div class="row">
             <div class="countdown-card">
-                <h1 class="title">天气预报</h1>
-                <p class="time">{{ weather }}</p>
+                <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ workTime }}</p>
             </div>
-
-            <!-- 右侧倒计时 -->
             <div class="countdown-card">
-                <h1>拉屎倒计时</h1>
-                <p v-if="countdownTime > 0" class="time">距拉屎还有：{{ formattedTime }}</p>
-                <p v-else>该拉屎啦！</p>
+                <h1 class="title">午饭倒计时</h1>
+                <p class="time">{{ newYearTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">晚饭倒计时</h1>
+                <p class="time">{{ lunchTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">睡觉倒计时</h1>
+                <p class="time">{{ sleepTime }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="countdown-card">
+                <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ workTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">午饭倒计时</h1>
+                <p class="time">{{ newYearTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">晚饭倒计时</h1>
+                <p class="time">{{ lunchTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">睡觉倒计时</h1>
+                <p class="time">{{ sleepTime }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="countdown-card">
+                <h1 class="title">下班倒计时</h1>
+                <p class="time">{{ workTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ newYearTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">吃饭倒计时</h1>
+                <p class="time">{{ lunchTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">睡觉倒计时</h1>
+                <p class="time">{{ sleepTime }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="countdown-card">
+                <h1 class="title">下班倒计时</h1>
+                <p class="time">{{ workTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ newYearTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">吃饭倒计时</h1>
+                <p class="time">{{ lunchTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">睡觉倒计时</h1>
+                <p class="time">{{ sleepTime }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="countdown-card">
+                <h1 class="title">下班倒计时</h1>
+                <p class="time">{{ workTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ newYearTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">吃饭倒计时</h1>
+                <p class="time">{{ lunchTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">睡觉倒计时</h1>
+                <p class="time">{{ sleepTime }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="countdown-card">
+                <h1 class="title">下班倒计时</h1>
+                <p class="time">{{ workTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">过年倒计时</h1>
+                <p class="time">{{ newYearTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">吃饭倒计时</h1>
+                <p class="time">{{ lunchTime }}</p>
+            </div>
+            <div class="countdown-card">
+                <h1 class="title">睡觉倒计时</h1>
+                <p class="time">{{ sleepTime }}</p>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+/* 容器样式 - 确保动态扩展 */
+.countdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px; /* 减少内边距 */
+    background: #f2f2f2;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh; /* 确保容器占满视窗 */
+    overflow: hidden; /* 禁用滚动条 */
+}
+
+/* 每排样式 */
+.row {
+    display: flex;
+    flex-wrap: wrap; /* 允许换行 */
+    justify-content: flex-start; /* 卡片靠左对齐 */
+    width: 100%;
+    max-width: 1200px;
+    gap: 10px; /* 减少卡片间距 */
+    margin: 5px 0;
+}
+
+/* 倒计时卡片样式 */
+.countdown-card {
+    background: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 减少阴影的视觉占比 */
+    padding: 15px; /* 减少卡片内边距 */
+    text-align: center;
+    width: calc(25% - 10px); /* 确保每排最多显示四个卡片 */
+    min-width: 160px; /* 调整卡片宽度 */
+    min-height: 90px; /* 减小卡片高度 */
+    animation: fadeIn 1s ease-in;
+    overflow: hidden; /* 防止内容溢出 */
+}
+
+/* 标题样式 */
+.title {
+    font-size: 16px; /* 缩小字体 */
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: bold;
+    white-space: nowrap; /* 防止标题换行 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 时间样式 */
+.time {
+    font-size: 18px; /* 缩小字体 */
+    font-weight: bold;
+    color: #ff5722;
+    margin: 8px 0;
+    letter-spacing: 0.5px; /* 缩小字符间距 */
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+</style>
 
 <script>
 export default {
@@ -197,66 +347,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-/* Container - Full screen centering */
-.countdown-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    background: #f2f2f2;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Row Styling */
-.row {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin: 20px 0;
-}
-
-/* Countdown Card Styling */
-.countdown-card {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    text-align: center;
-    width: 530px;
-    max-width: 100%;
-    margin: 20px;
-    animation: fadeIn 1s ease-in;
-}
-
-/* Title Styling */
-.title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Time Styling */
-.time {
-    font-size: 30px;
-    font-weight: bold;
-    color: #ff5722;
-    margin: 20px 0;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
-}
-
-/* Time Message - Color change when it's time to leave */
-.time[data-state="leave"] {
-    color: #4caf50;
-}
-
-/* Animation for fading in */
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-</style>
