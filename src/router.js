@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from './components/Dashboard.vue';
 import Orders from './components/Orders.vue';
+import Nongli from "@/components/Nongli.vue";
 
 // 路由配置
 const routes = [
@@ -8,7 +9,8 @@ const routes = [
     path: "/dashboard",
     component: Dashboard,
   },
-  { path: '/orders', component: Orders, name: 'orders' }
+  { path: '/products', component: Orders, name: 'products' },
+  { path: '/orders/pending', component: Nongli, name: 'nongli' }
 ];
 
 const router = createRouter({
