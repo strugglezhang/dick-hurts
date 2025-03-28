@@ -3,9 +3,9 @@
         <!-- 第一排: 显示倒计时 -->
         <div class="row">
             <div class="countdown-card" v-for="item in data" :key="item.id">
-                <h1 class="title">{{ item.name }}</h1>
-                <p class="time">{{ item.countdown }}</p>
-                <p class="time">{{ item.description }}</p>
+                <p class="desc">{{ item.description }}</p>
+                <h1 class="time">{{ item.name }} ：{{ item.target_time }}</h1>
+                <p class="title">还有：{{ item.countdown }}</p>
             </div>
         </div>
     </div>
@@ -47,9 +47,15 @@
 }
 
 .title {
-    font-size: 16px;
-    color: #333;
+    font-size: 18px;
+    color: #dd5722;
     margin-bottom: 8px;
+    font-weight: bold;
+}
+.title {
+    font-size: 14px;
+    color: #221;
+    margin-bottom: 6px;
     font-weight: bold;
 }
 
@@ -136,7 +142,9 @@ export default {
                 // is_recurring == 1: 将一天平均分成 n 份
                 const n = item.recurrence_interval; // 获取 n
                 const currentTimeSlotStart = getCurrentTimeSlotStart(n); // 获取当前时间段的开始时间
-
+                console.info(currentTimeSlotStart)
+                console.info(n)
+                console.info(1111)
                 // 判断当前时间段是否已经过去，如果过去了则进入下一个时间段
                 const now = new Date();
                 if (currentTimeSlotStart <= now) {
@@ -147,12 +155,22 @@ export default {
                 updateCountdown(currentTimeSlotStart, item); // 从当前时间段开始倒计时
             } else if (item.is_recurring === 2) {
                 // is_recurring == 2: 每天固定时间倒计时
-                const targetTime = new Date();
-                const targetParts = item.target_time.split(":"); // 假设 target_time 是 "HH:mm" 格式
-                targetTime.setHours(targetParts[0], targetParts[1], 0, 0); // 设置为目标时间（不指定日期）
+                const now = new Date(); // 当前时间
+                const targetTime = new Date(now); // 复制当前时间（保持日期）
 
+                // 分割 target_time，假设格式为 "HH:mm"
+                const [hours, minutes] = item.target_time.split(":").map(Number);
+                targetTime.setHours(hours, minutes, 0, 0); // 设置目标时间（当天）
+
+                // 检查目标时间是否已过
+                if (targetTime <= now) {
+                    console.log("目标时间已过:", targetTime.toString()); // 调试日志
+                    return; // 跳过倒计时逻辑
+                }
+
+                console.log("启动倒计时:", targetTime.toString()); // 调试日志
                 updateCountdown(targetTime, item); // 启动倒计时
-            } else if (item.is_recurring === 3) {
+            }else if (item.is_recurring === 3) {
                 // is_recurring == 3: 每周固定时间倒计时
                 const targetParts = item.target_time.split("_"); // "5_18:00" -> ["5", "18:00"]
                 const targetDayOfWeek = parseInt(targetParts[0]); // 获取星期几（1-7，1为周一，7为周日）
@@ -286,8 +304,9 @@ export default {
         // 计算当前时间属于哪一份时间段
         const getCurrentTimeSlotStart = (n) => {
             const currentTime = new Date();
-            const totalMinutesInDay = 24 * 60; // 一天的总分钟数
-            const slotDuration = totalMinutesInDay / n; // 每个时间段的持续时间，单位为分钟
+            const totalMinutesInDay = 24 * 60  ; // 一天的总秒数
+            const slotDuration = totalMinutesInDay / n; // 每个时间段的持续时间，单位为秒
+
 
             const totalMinutes = currentTime.getHours() * 60 + currentTime.getMinutes(); // 当前时间的分钟数
             const slotIndex = Math.floor(totalMinutes / slotDuration); // 计算当前时间属于哪一份

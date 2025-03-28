@@ -2,14 +2,16 @@
     <div class="app">
         <!-- 头部 -->
         <header class="app-header">
-            <div class="logo">My Admin</div>
+            <div class="logo">狂躁倒计时系统</div>
             <div class="user-info" @click="toggleUserMenu">
-                <img class="user-avatar" src="https://via.placeholder.com/40" alt="User Avatar" />
+                <div class="avatar" :style="{ backgroundImage: `url(${require('@/assets/test.jpeg')})` }"></div>
                 <span>{{ user.name }}</span>
             </div>
             <div v-if="userMenuVisible" class="user-dropdown">
-                <p>{{ user.name }}</p>
-                <p>{{ user.email }}</p>
+                <p class="dropdown-item">{{ user.name }}</p>
+                <p class="dropdown-item">{{ user.email }}</p>
+                <hr class="divider">
+                <button class="dropdown-button">退出登录</button>
             </div>
         </header>
 
@@ -53,25 +55,27 @@
 export default {
     data() {
         return {
+            // userAvatar: require('@/assets/1.jpg'),
             user: {
-                name: 'Admin User',
-                email: 'admin@example.com',
+                name: '超级狂暴倒计时',
+                email: 'admin@qq.com',
             },
             userMenuVisible: false,
             activePath: '/dashboard',
             menuItems: [
-                { name: 'Dashboard', path: '/dashboard', open: false },
+                { name: '超级牛逼倒计时', path: '/dashboard', open: false },
+                { name: '统计图', path: '/products' },
+                { name: '表格', path: '/table' },
+                { name: '设置', path: '/settings' },
                 {
-                    name: 'Orders',
+                    name: '其他的',
                     path: '/orders',
                     open: false,
                     children: [
-                        { name: 'Pending Orders', path: '/orders/pending' },
-                        { name: 'Completed Orders', path: '/orders/completed' },
+                        { name: '大牛逼', path: '/orders/pending' },
+                        { name: '二秃驴', path: '/orders/completed' },
                     ],
                 },
-                { name: 'Products', path: '/products' },
-                { name: 'Settings', path: '/settings' },
             ],
         };
     },
@@ -96,7 +100,87 @@ export default {
     },
 };
 </script>
+<style scoped>
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%; /* 放置在 header 下方 */
+    right: 20px; /* 靠右对齐 */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1000;
+    min-width: 200px;
+    overflow: hidden;
+}
+
+.dropdown-item {
+    margin: 0;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #333;
+    cursor: default;
+    /* 移除了 transition 和 hover 效果 */
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 8px 0;
+}
+
+.dropdown-item:hover {
+    color: #333 !important; /* 强制颜色不变 */
+    background-color: transparent !important; /* 强制背景不变 */
+}
+
+.dropdown-button:hover {
+    color: #e74c3c !important; /* 强制颜色不变 */
+    background-color: transparent !important; /* 强制背景不变 */
+}
+.dropdown-button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #e74c3c; /* 退出按钮的红色文字 */
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+</style>
 <style scoped>
 /* 全局布局 */
 .app {
@@ -107,21 +191,10 @@ export default {
     background-color: #f5f7fa;
 }
 
-/* 头部样式 */
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2d3e50;
-    color: white;
-    padding: 0 20px;
-    height: 60px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .logo {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+    color: #333;
 }
 
 .user-info {
@@ -130,21 +203,40 @@ export default {
     cursor: pointer;
 }
 
-.user-avatar {
-    border-radius: 50%;
-    margin-right: 10px;
+/* 头部样式 */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2d3e50;
+    color: white;
+    padding: 0 20px;
+    height: 60px; /* 确保头部高度固定 */
+    min-height: 60px; /* 确保最小高度 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.user-dropdown {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    background: white;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    z-index: 10;
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #3498db, #8e44ad); /* 更亮的蓝色渐变 */
 }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-size: cover; /* 覆盖整个容器 */
+    background-position: center; /* 居中显示 */
+    border-radius: 50%; /* 圆形头像 */
+}
+
 
 /* 主体样式 */
 .app-body {
@@ -221,5 +313,6 @@ export default {
     padding: 20px;
     background-color: #f5f7fa;
     overflow-y: auto;
+    min-height: calc(100vh - 60px); /* 确保内容区不影响头部 */
 }
 </style>
